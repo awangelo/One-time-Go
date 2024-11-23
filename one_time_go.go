@@ -2,24 +2,40 @@ package main
 
 import (
 	"flag"
+	"fmt"
 )
 
-func main() {
-	// Argumentos longos
-	inputFile := flag.String("input", "", "Input file (required)")
-	outputFile := flag.String("output", "encrypted.out", "Encrypted output file name")
-	padFile := flag.String("pad", "pad.out", "Pad file name")
-	// Argumentos curtos
-	flag.StringVar(inputFile, "i", "", "Alias for input")
-	flag.StringVar(outputFile, "o", "encrypted.out", "Alias for output")
-	flag.StringVar(padFile, "p", "pad.out", "Alias for pad")
+var data Data
+
+func init() {
+	flag.StringVar(&data.InputFile, "input", "", "Input file (required)")
+	flag.StringVar(&data.OutputFile, "output", "encrypted.out", "Encrypted output file name")
+	flag.StringVar(&data.PadFile, "pad", "pad.out", "Pad file name")
+	flag.StringVar(&data.InputFile, "i", "", "Alias for input")
+	flag.StringVar(&data.OutputFile, "o", "encrypted.out", "Alias for output")
+	flag.StringVar(&data.PadFile, "p", "pad.out", "Alias for pad")
 
 	flag.Parse()
+}
 
+func main() {
 	// Mostrar ajuda se nao for passado input
-	if *inputFile == "" {
+	if data.isValid() {
 		flag.Usage()
 		return
 	}
 
+	if data.isEncrypted() {
+		err := data.encryptFile()
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("File encrypted successfully: %s, %s\n", data.OutputFile, data.PadFile)
+	} else {
+		err := data.decryptFile()
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("File decrypted successfully: ", data.OutputFile)
+	}
 }
