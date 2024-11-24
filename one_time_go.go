@@ -26,13 +26,13 @@ func main() {
 	}
 
 	if data.isEncrypted() {
-		err := decrypt()
+		err := data.decrypt()
 		if err != nil {
 			panic(err)
 		}
 		fmt.Println("File decrypted successfully: ", data.OutputFile)
 	} else {
-		err := encrypt()
+		err := data.encrypt()
 		if err != nil {
 			panic(err)
 		}
