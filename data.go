@@ -9,12 +9,15 @@ type Data struct {
 	PadFile    string
 }
 
+// Checa se o input file foi fornecido
 func (d Data) isValid() bool {
-	return d.InputFile != ""
+	return d.InputFile == ""
 }
 
+// Checa se o arquivo de pad existe
 func (d Data) isEncrypted() bool {
-	return d.PadFile != ""
+	_, err := os.Stat(d.PadFile)
+	return err == nil // retorna true se o arquivo existe (decrypt) ou false se nao existe (encrypt)
 }
 
 func (d Data) readInputFile() ([]byte, error) {
@@ -34,7 +37,15 @@ func (d Data) readPadFile() ([]byte, error) {
 }
 
 func (d Data) writeEncryptedFile(data []byte) error {
-	err := os.WriteFile(d.OutputFile, data, os.ModeAppend)
+	err := os.WriteFile(d.OutputFile, data, 0666)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d Data) writePadFile(data []byte) error {
+	err := os.WriteFile(d.PadFile, data, 0666)
 	if err != nil {
 		return err
 	}
