@@ -70,7 +70,7 @@ func (fc FileConfig) decrypt() error {
 	}
 
 	// Cria o arquivo descriptografado e criado e preenchido com os dados descriptografados
-	decrypted, err := os.Create("decrypted.out")
+	decrypted, err := os.Create(fc.OutputFile)
 	if err != nil {
 		return fmt.Errorf("error creating decrypted file:%w", err)
 	}
