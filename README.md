@@ -21,9 +21,9 @@ To encrypt a file, run the program with the `-input` flag specifying the input f
 ./otp -input <input_file> [-output <output_file>] [-pad <pad_file>]
 ```
 
-- <input_file>: Path to the file you want to encrypt.
-- <output_file>: (Optional) Name of the encrypted output file (default is result.out).
-- <pad_file>: (Optional) Name of the pad file to generate (default is `pad.out`).
+- `<input_file>`: Path to the file you want to encrypt.
+- `<output_file>`: (Optional) Name of the encrypted output file (default is result.out).
+- `<pad_file>`: (Optional) Name of the pad file to generate (default is `pad.out`).
 
 #### Example:
 
@@ -40,9 +40,9 @@ To decrypt a file, ensure the pad file used during encryption is present.
 ./otp -input <encrypted_file> -pad <pad_file> [-output <output_file>]
 ```
 
-- <encrypted_file>: Path to the encrypted file.
-- <pad_file>: Path to the pad file used during encryption.
-- <output_file>: (Optional) Name of the decrypted output file (default is `result.out`).
+- `<encrypted_file>`: Path to the encrypted file.
+- `<pad_file>`: Path to the pad file used during encryption.
+- `<output_file>`: (Optional) Name of the decrypted output file (default is `result.out`).
 
 #### Example:
 
