@@ -10,10 +10,10 @@ var file FileConfig
 
 func init() {
 	flag.StringVar(&file.InputFile, "input", "", "Input file (required)")
-	flag.StringVar(&file.OutputFile, "output", "encrypted.out", "Encrypted output file name")
-	flag.StringVar(&file.PadFile, "pad", "pad.out", "Pad file name")
-	flag.StringVar(&file.InputFile, "i", "", "Alias for input (required)")
-	flag.StringVar(&file.OutputFile, "o", "encrypted.out", "Alias for output")
+	flag.StringVar(&file.OutputFile, "output", "result.out", "Output file name")
+	flag.StringVar(&file.PadFile, "pad", "pad.out", "Pad file name (required for decryption)")
+	flag.StringVar(&file.InputFile, "i", "", "Alias for input")
+	flag.StringVar(&file.OutputFile, "o", "result.out", "Alias for output")
 	flag.StringVar(&file.PadFile, "p", "pad.out", "Alias for pad")
 
 	flag.Parse()
@@ -21,7 +21,7 @@ func init() {
 
 func main() {
 	// Mostrar ajuda se nao for passado input
-	if file.isValid() {
+	if !file.isValid() {
 		flag.Usage()
 		return
 	}
@@ -39,6 +39,6 @@ func main() {
 			fmt.Println("Error encrypting file: ", err)
 			os.Exit(1)
 		}
-		fmt.Printf("File encrypted successfully: %s, %s\n", file.OutputFile, file.PadFile)
+		fmt.Printf("File encrypted successfully:%s, %s\n", file.OutputFile, file.PadFile)
 	}
 }
